@@ -46,7 +46,13 @@
 			<artifactId>spring-boot-starter-webmvc-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-	</dependencies>
+	
+   <dependency>
+     <groupId>br.com.caelum.livraria</groupId>
+     <artifactId>livraria-base</artifactId>
+     <version>1.0.0</version>
+   </dependency>
+ </dependencies>
 
 	<build>
 		<plugins>

@@ -1,7 +1,7 @@
 package dev.biblioteca.service;
 
 import dev.biblioteca.model.entities.Livro;
-import dev.biblioteca.model.entities.Usuario;
+import dev.biblioteca.model.entities.User;
 
 public class LivroService {
     // metodo de inserir um livro cadastrado
