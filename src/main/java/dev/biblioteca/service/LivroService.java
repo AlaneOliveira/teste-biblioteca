@@ -15,21 +15,21 @@ public class LivroService { // ← sem parênteses!
 
     // metodo de cadastrar um novo livro na biblioteca
     public String cadastrar(Livro l){
-        if(l.getTitulo().isEmpty()){
-            return "Livro sem titulo, por favor informe";
-        }
-        if(l.getAutor().isEmpty()){
-            return "Livro sem autor, por favor informe";
-        }
-        if(l.getIsbn().isEmpty()){
-            return "Livro sem ISBN, por favor informe";
-        }
-        if(l.getQuantidade() == 0){
-            return "Livro sem a quantidade, por favor informe";
-        }
-        System.out.println("Livro " + l.getTitulo() + " cadastrado com sucesso!");
-        return "Livro cadastrado com sucesso";
+    if(l.getTitulo().isEmpty()){
+        return "Livro sem titulo, por favor informe";
     }
+    if(l.getAutor().isEmpty()){
+        return "Livro sem autor, por favor informe";
+    }
+    if(l.getIsbn().isEmpty()){
+        return "Livro sem ISBN, por favor informe";
+    }
+    if(l.getQuantidade() == 0){
+        return "Livro sem a quantidade, por favor informe";
+    }
+    livroRepo.save(l); // salva o livro no repositório
+    return "Livro cadastrado com sucesso";
+}
     public String consulta(String titulo){
     if(titulo.isEmpty()){
         return "Título inválido!";

@@ -27,53 +27,48 @@ public class UserTest {
     }
     @Test // anotação para dizer que esse método é um teste
     public void LoginUserSucesso(){
-        resultado = userService.inserir(user);
-        // asserEquals = serve para verificar se valores sao iguais
-        assertEquals("Usuário logado com sucesso!", resultado); // verificando se o resultado do método inserir é igual a "Usuário logado com sucesso!"
-    }
-    @Test
-    public void LoginSenhaInvalida(){
-        user = User.builder()
-            .login("teste")   // ← login vazio
-            .senha("4dd")
-            .build();
-        resultado = userService.inserir(user);
-        assertEquals("Senha inválida!", resultado); // verificando se o resultado
-    }
-    @Test 
-    public void LoginInvalido(){
-        user = User.builder() // criando um objeto do tipo User com login vazio para testar o login inválido
-            .login("") // login vazio
-            .senha("123") // senha válida
-            .build();
-        resultado = userService.inserir(user);
-        assertEquals("Login inválido!", resultado); // verificando se o resultado do método inserir é igual a "Login inválido!"
-    }
-    @Test
-    public void LoginUserInexistente(){
-        user = User.builder() // criando um objeto do tipo User com login e senha que não existem para testar o login de usuário inexistente
-            .login("userhaha") // login que não existe
-            .senha("123") // senha válida
-            .build();
-        resultado = userService.inserir(user);
-        assertEquals("Usuário inexistente!", resultado); // verificando se o resultado do método inserir é igual a "Usuário inexistente!"
-    }
-    @Test 
-    public void LoginUserVazio(){
-        user = User.builder() // criando um objeto do tipo User com login e senha vazios para testar o login de usuário vazio
-            .login("") // login vazio
-            .senha("") // senha vazia
-            .build();
-        resultado = userService.inserir(user);
-        assertEquals("Usuário vazio!", resultado); // verificando se o resultado do método inserir é igual a "Usuário vazio!"
-    }
-    @Test
-    public void LoginSenhaVazia(){
-        user = User.builder() // criando um objeto do tipo User com login válido e senha vazia para testar o login de senha vazia
-            .login("teste") // login válido
-            .senha("") // senha vazia
-            .build();
-        resultado = userService.inserir(user); // chamando o método inserir do UserService para testar o login do usuário
-        assertEquals("Senha vazia!", resultado); // verificando se o resultado do método inserir é igual a "Senha vazia!"
-    }
+    resultado = userService.inserir(user);
+    // asserEquals = serve para verificar se valores sao iguais
+    assertEquals("Usuário logado com sucesso!", resultado); // verificando se o resultado do método inserir é igual a "Usuário logado com sucesso!"
+}
+
+@Test
+public void LoginExistenteSenhaInvalida(){
+    user = User.builder()
+        .login("teste")   // login válido
+        .senha("ddd") // senha inválida (não é número)
+        .build();
+    resultado = userService.inserir(user);
+    assertEquals("preencha o campo senha corretamente", resultado); // verificando se o resultado do método inserir é igual a "Usuário ou senha inválidos!"
+}
+
+@Test 
+public void LoginInvalido(){
+    user = User.builder() // criando um objeto do tipo User com login vazio para testar o login inválido
+        .login("oi") // login invalido (não existe)
+        .senha("123") // senha válida
+        .build();
+    resultado = userService.inserir(user);
+    assertEquals("Usuário logado com sucesso!", resultado); // login existe e senha válida
+}
+
+@Test
+public void LoginVazio(){
+    user = User.builder() // criando um objeto do tipo User com login e senha vazios para testar o login de usuário vazio
+        .login("") // login vazio
+        .senha("123") // senha válida
+        .build();
+    resultado = userService.inserir(user);
+    assertEquals("Preencha o campo login", resultado); // verificando se o resultado do método inserir é igual a "Preencha o campo login"
+}
+
+@Test
+public void SenhaVazia(){
+    user = User.builder() // criando um objeto do tipo User com login válido e senha vazia para testar o login de senha vazia
+        .login("teste") // login válido
+        .senha("") // senha vazia
+        .build();
+    resultado = userService.inserir(user); // chamando o método inserir do UserService para testar o login do usuário
+    assertEquals("preencha o campo senha corretamente", resultado); // verificando se o resultado do método inserir é igual a "Senha vazia!"
+}
 }

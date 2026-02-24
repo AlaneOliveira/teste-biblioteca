@@ -9,17 +9,23 @@ public class UserService {
 
     // método para inserir usuário
     public String inserir(User usuario){
+        if (usuario.getLogin().isEmpty()){
+            return "Preencha o campo login";
+        }
+        else if (usuario.getSenha().isEmpty() || !usuario.getSenha().matches("[0-9]+")){ // só aceita numeros
+            return "preencha o campo senha corretamente";
+        }
         System.out.println(cadastrar(usuario));
         return "Usuário logado com sucesso!";
     }
 
     // método para cadastrar usuário
     public String cadastrar(User usuario){
-        if(usuario.getLogin().isEmpty()){
-            return "Preencha o campo login";
+        if(!usuario.getSenha().matches("[0-9]+")){
+            return "Preencha o campo senha corretamente";
         }
-        if(usuario.getSenha().isEmpty() || !usuario.getSenha().matches("[0-9]+")){ // só aceita numeros
-            return "preencha o campo senha corretamente";
+        if(usuario.getLogin().isEmpty() || usuario.getSenha().isEmpty()){ // verifica se o login do usuário está vazio
+            return "usuario vazio";
         }
         System.out.println("Usuário " + usuario.getLogin() + " Senha " + usuario.getSenha() + " cadastrado com sucesso!");
         uRepo.save(usuario);

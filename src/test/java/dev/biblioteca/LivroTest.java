@@ -78,13 +78,19 @@ public class LivroTest {
         assertEquals("Livro cadastrado com sucesso", resultado);
     }
     @Test 
-    public void ConsultaValida(){ 
-        livro = Livro.builder()
+public void ConsultaValida(){ 
+    livro = Livro.builder()
         .titulo("teste")
+        .autor("Autor Teste")
+        .isbn("123456789")
+        .quantidade(3)
         .build();
-        resultado = livroService.consulta(livro.getIsbn());  //  pega o isbn do livro
-        assertEquals("Livro cadastrado", resultado);    
-    }
+    
+    livroService.cadastrar(livro); // ← cadastra primeiro!
+    
+    resultado = livroService.consulta(livro.getTitulo());
+    assertEquals("Livro encontrado: " + livro, resultado); // ← bate com o retorno
+}
     @Test
     public void EmprestimoValido(){
         livro = Livro.builder()
