@@ -11,11 +11,11 @@ public class LivroService {
     }
     // metodo de cadastrar um novo livro na biblioteca
     public String cadastrar(Livro l){
-        System.out.println("Livro " + l.getTitulo() + " autor " + l.getAutor() + " ISBN " + l.getISBN() + " quantidade " + l.getQuantidade() + " cadastrado com sucesso!"); // pega os atributos da classe livro e cadastra um novo livro
+        System.out.println("Livro " + l.getTitulo() + " autor " + l.getAutor() + " ISBN " + l.getIsbn() + " quantidade " + l.getQuantidade() + " cadastrado com sucesso!"); // pega os atributos da classe livro e cadastra um novo livro
         return "Livro cadastrado com sucesso!";
     }
     // metodo de emprestar um livro para um usuário
-    public String emprestar(Livro l, Usuario u){
+    public String emprestar(Livro l, User u){
         System.out.println("Livro " + l.getTitulo() + " emprestado para " + u.getLogin() + " com sucesso!");
         return "Livro emprestado com sucesso!";
     }

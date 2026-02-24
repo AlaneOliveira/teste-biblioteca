@@ -1,21 +1,11 @@
-package dev.biblioteca.entities;
+package dev.biblioteca.model.entities;
 
-public class usuario {
+import lombok.Builder; // importação do lombok para gerar um construtor com todos os atributos da classe, facilitando a criação de objetos do tipo User
+import lombok.Data;
+
+@Data
+@Builder // anotação do lombok para gerar um construtor com todos os atributos da classe, facilitando a criação de objetos do tipo User
+public class User { // classe usuário, com seus atributos e métodos getters e setters
     private String login;
-    private String senha;
-
-    // get = poder editar 
-    public String getLogin(){
-        return login;
-    }
-    // set = não poder editar
-    public void setLogin(String login){
-        this.login = login;
-    }
-    public String getSenha(){
-        return senha;
-    }
-    public void setSenha(String senha){
-        this.senha = senha;
-    }
+    private int senha;
 }

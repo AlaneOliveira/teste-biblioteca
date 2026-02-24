@@ -1,16 +1,22 @@
 package dev.biblioteca.service;
+
 import dev.biblioteca.model.entities.User;
 import dev.biblioteca.model.repositories.UserRepo;
 
 public class UserService {
+
+    private UserRepo uRepo = new UserRepo(); // objeto da classe UserRepo para acessar os métodos de salvar usuário no banco local
+
     // método para inserir usuário
-    public String inserir(Use u){
-        System.out.println(cadastrar(u));
+    public String inserir(User usuario){
+        System.out.println(cadastrar(usuario));
         return "Usuário logado com sucesso!";
     }
+
     // método para cadastrar usuário
-    public String cadastrar(User u){
-        System.out.println("Usuário " + u.getLogin() + "Senha " + u.getSenha() + " cadastrado com sucesso!");
+    public String cadastrar(User usuario){
+        System.out.println("Usuário " + usuario.getLogin() + " Senha " + usuario.getSenha() + " cadastrado com sucesso!");
+        uRepo.save(usuario);
         return "Usuário cadastrado com sucesso!";
     }
 }

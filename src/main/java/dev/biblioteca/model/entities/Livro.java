@@ -1,40 +1,15 @@
-package dev.biblioteca.entities;
+package dev.biblioteca.model.entities;
 
-public class livro {
+import lombok.Builder;
+import lombok.Data;
+
+@Data // anotação do lomboak para gerar os métodos getters e setters automaticamente 
+@Builder // anotação do lombok para gerar um construtor com todos os atributos da classe, facilitando a criação de objetos do tipo Livro
+public class Livro { // classe livro, com seus atributos e métodos getters e setters
     private String titulo;
     private String autor;
-    private String ISBN;
+    private String isbn;
     private int quantidade;
     private String emprestimo;
 
-    public String getTitulo() {
-        return titulo;
-    }
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-    public String getAutor() {
-        return autor;
-    }
-    public void setAutor(String autor) {
-        this.autor = autor;
-    }
-    public String getISBN() {
-        return ISBN;
-    }
-    public void setISBN(String ISBN) {
-        this.ISBN = ISBN;
-    }
-    public int getQuantidade() {
-        return quantidade;
-    }
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
-    }
-    public String getEmprestimo() {
-        return emprestimo;
-    }
-    public void setEmprestimo(String emprestimo) {
-        this.emprestimo = emprestimo;
-    }
 }
