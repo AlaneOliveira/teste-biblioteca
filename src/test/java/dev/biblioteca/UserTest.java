@@ -27,6 +27,7 @@ public class UserTest {
     @Test // anotação para dizer que esse método é um teste
     public void LoginUserSucesso(){
         String resultado = userService.inserir(user);
+        // asserEquals = serve para verificar se valores sao iguais
         assertEquals("Usuário logado com sucesso!", resultado); // verificando se o resultado do método inserir é igual a "Usuário logado com sucesso!"
     }
     @Test
@@ -51,8 +52,7 @@ public class UserTest {
     }
     @Test
     public void SenhaVazia(){
-        String resultado = userService.inserir(user);
+        String resultado = userService.inserir(user); // chamando o método inserir do UserService para testar o login do usuário
         assertEquals("Senha vazia!", resultado); // verificando se o resultado do método inserir é igual a "Senha vazia!"
     }
-
 }
