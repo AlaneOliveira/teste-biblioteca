@@ -28,21 +28,45 @@ public class LivroTest {
     }
     @Test // anotação para dizer que esse método é um teste
     public void CadastroSemTitulo(){
+        livro = Livro.builder()
+            .titulo("")
+            .autor("Autor Teste")
+            .isbn("123456789")
+            .quantidade(3)
+            .build();
         resultado = livroService.cadastrar(livro);
         assertEquals("Livro sem titulo, por favor informe", resultado);
     }
     @Test
     public void CadastroSemAutor(){
+        livro = Livro.builder()
+            .titulo("teste")
+            .autor("")
+            .isbn("123456789")
+            .quantidade(3)
+            .build();
         resultado = livroService.cadastrar(livro);
         assertEquals("Livro sem autor, por favor informe", resultado);
     }
     @Test
     public void CadastroSemIsbn(){
+        livro = Livro.builder()
+                .titulo("teste")
+                .autor("Autor Teste")
+                .isbn("")
+                .quantidade(3)
+                .build();
         resultado = livroService.cadastrar(livro);
         assertEquals("Livro sem ISBN, por favor informe", resultado);
     }
     @Test
     public void CadastroSemQuantidade(){
+        livro = Livro.builder()
+                .titulo("teste")
+                .autor("Autor Teste")
+                .isbn("123456789")
+                .quantidade(0)
+                .build();
         resultado = livroService.cadastrar(livro);
         assertEquals("Livro sem a quantidade, por favor informe", resultado);
     }
