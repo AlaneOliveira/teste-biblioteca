@@ -11,10 +11,10 @@ public class LivroRepo {
         this.l.add(l);
         System.out.println("Livro salvo no banco local!");
     }
-    // método que busca pelo isbn
-    public Livro findByIsbn(String isbn){
+    // método que busca pelo titulo
+    public Livro findByTitulo(String titulo){
         for(Livro livro : l){
-            if(livro.getIsbn().equals(isbn)){
+            if(livro.getTitulo().equals(titulo)){
                 return livro; // encontrou!
             }
         }

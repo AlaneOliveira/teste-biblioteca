@@ -11,4 +11,6 @@ public class Livro { // classe livro, com seus atributos e métodos getters e se
     private String isbn;
     private int quantidade;
     private String emprestimo;
+
+    private User user; // atributo do tipo User para armazenar o usuário que emprestou o livro
 }

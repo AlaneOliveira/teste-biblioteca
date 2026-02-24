@@ -8,12 +8,14 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import dev.biblioteca.model.entities.Livro;
+import dev.biblioteca.model.entities.User;
 import dev.biblioteca.service.LivroService;
 
 @ExtendWith(MockitoExtension.class) 
 @SpringBootTest // anotação para dizer que é um teste de contexto do Spring Boot
 public class LivroTest {
     private Livro livro; // criando um objeto do tipo Livro para usar nos testes
+    private User user;
     @InjectMocks // anotação para injetar os mocks criados na classe UserService
     private LivroService livroService = new LivroService(); // criando um objeto do tipo UserService
     String resultado;
@@ -74,5 +76,31 @@ public class LivroTest {
     public void CadastroCamposValidos(){
         resultado = livroService.cadastrar(livro);
         assertEquals("Livro cadastrado com sucesso", resultado);
+    }
+    @Test 
+    public void ConsultaValida(){ 
+        livro = Livro.builder()
+        .titulo("teste")
+        .build();
+        resultado = livroService.consulta(livro.getIsbn());  //  pega o isbn do livro
+        assertEquals("Livro cadastrado", resultado);    
+    }
+    @Test
+    public void EmprestimoValido(){
+        livro = Livro.builder()
+            .isbn("123456789")
+            .user(user) // passando o objeto user criado no método setUp para o atributo user do livro
+        .build();
+        resultado = livroService.emprestar(livro, user);
+        assertEquals("Emprestimo realizado com sucesso!", resultado);
+    }
+    @Test
+    public void EmprestimoEstoqueIndisponivel(){
+        livro = Livro.builder()
+            .isbn("123456789")
+            .user(user) // passando o objeto user criado no método setUp para o atributo user do livro
+            .build();
+        resultado = livroService.emprestar(livro, user);
+        assertEquals("Emprestimo nao realizado por falta de estoque", resultado);    
     }
 }

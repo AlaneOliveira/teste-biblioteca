@@ -30,16 +30,19 @@ public class LivroService { // ← sem parênteses!
         System.out.println("Livro " + l.getTitulo() + " cadastrado com sucesso!");
         return "Livro cadastrado com sucesso";
     }
-    public String consulta(String isbn, User u){
-    if(isbn.isEmpty()){
-        return "ISBN inválido!";
+    public String consulta(String titulo){
+    if(titulo.isEmpty()){
+        return "Título inválido!";
     }
-    // busca o livro pelo isbn
-    return "Livro encontrado: " + livroRepo.findByIsbn(isbn);
+    // busca o livro pelo titulo
+    return "Livro encontrado: " + livroRepo.findByTitulo(titulo);
     }
     // metodo de emprestar um livro para um usuário
     public String emprestar(Livro l, User u){
-        System.out.println("Livro: " + l.getTitulo() + " emprestado para " + u.getLogin() + " com sucesso!");
+        if (l.getTitulo().isEmpty()){ // verifica se o titulo do livro está vazio
+            return "Titulo inválido!";
+        }
+        System.out.println("Livro: " + l.getTitulo() + " " + u.getLogin() + " com sucesso!");
         return "Livro emprestado com sucesso!";
     }
 }
