@@ -15,6 +15,12 @@ public class UserService {
 
     // método para cadastrar usuário
     public String cadastrar(User usuario){
+        if(usuario.getLogin().isEmpty()){
+            return "Preencha o campo login";
+        }
+        if(usuario.getSenha().isEmpty() || !usuario.getSenha().matches("[0-9]+")){ // só aceita numeros
+            return "preencha o campo senha corretamente";
+        }
         System.out.println("Usuário " + usuario.getLogin() + " Senha " + usuario.getSenha() + " cadastrado com sucesso!");
         uRepo.save(usuario);
         return "Usuário cadastrado com sucesso!";

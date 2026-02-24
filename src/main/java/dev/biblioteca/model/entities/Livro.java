@@ -11,5 +11,4 @@ public class Livro { // classe livro, com seus atributos e métodos getters e se
     private String isbn;
     private int quantidade;
     private String emprestimo;
-
 }
