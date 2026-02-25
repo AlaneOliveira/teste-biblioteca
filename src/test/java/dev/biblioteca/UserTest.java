@@ -79,7 +79,7 @@ public class UserTest {
 
         resultado = userService.logar(userTeste2);
 
-        assertEquals("Usuário com login invalido!", resultado); // login existe e senha válida
+        assertEquals("usuario nao encontrado", resultado); // login existe e senha válida
     }
 
     @Test
@@ -107,7 +107,7 @@ public class UserTest {
                 .build();
 
         when(this.rUserRepo.buscar("teste")).thenReturn(user);
-        
+
         resultado = userService.logar(userTeste4); // chamando o método inserir do UserService para testar o login do
                                                // usuário
         assertEquals("preencha o campo senha corretamente", resultado); // verificando se o resultado do método inserir
