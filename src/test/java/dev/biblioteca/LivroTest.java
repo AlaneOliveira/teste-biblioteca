@@ -126,20 +126,27 @@ public class LivroTest {
     }
 
     @Test
-    public void ConsultaValida() {
-        livro = Livro.builder()
-                .titulo("teste")
-                .autor("Autor Teste")
-                .isbn("123456789")
-                .quantidade(3)
-                .build();
+public void ConsultaValida() {
+    // Arrange (Organizar)
+    Livro livroLocal = Livro.builder()
+            .titulo("teste")
+            .autor("Autor Teste")
+            .isbn("123456789")
+            .quantidade(3)
+            .build();
 
-        when(this.LivroRepo.buscar("teste")).thenReturn(livro); 
+    // Usa a variável 'livroRepo' (minúsculo) e o método correto 'findByTitulo'
+    when(livroRepo.findByTitulo("teste")).thenReturn(livroLocal); 
 
-        resultado = livroService.consulta(livro.getTitulo());
-        
-        assertEquals("Livro encontrado: " + livro, resultado); // bate com o retorno
-    }
+    // 2. Act (Agir)
+    // CORREÇÃO: O retorno é Optional<Livro>, não String.
+    java.util.Optional<Livro> resultadoOptional = livroService.consulta("teste");
+
+    // 3. Assert (Verificar)
+    // Verificamos se o Optional não está vazio e se o conteúdo é o esperado
+    assertEquals(true, resultadoOptional.isPresent(), "O livro deveria ter sido encontrado");
+    assertEquals("teste", resultadoOptional.get().getTitulo());
+}
 
     @Test
     public void EmprestimoValido() {

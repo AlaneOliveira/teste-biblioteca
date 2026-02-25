@@ -48,20 +48,17 @@ public class LivroService { // ← sem parênteses!
 
     // metodo de emprestimo de um livro para um usuário
     public String emprestimo(Livro l, User u) {
-
-        if (l.getTitulo() == null || l.getTitulo().isEmpty()) {
-            return "Título inválido!";
-        }
-
-        if (l.getQuantidade() <= 0) {
-            return "Livro indisponível para empréstimo!";
-        }
-
-        if (u == null) {
-            return "Usuário inválido!";
-        }
-        l.setQuantidade(l.getQuantidade() - 1);
-
-        return "Emprestimo realizado com sucesso!";
+    if (l.getQuantidade() <= 0) {
+        return "Livro indisponível para empréstimo!";
     }
+    if (u == null) {
+        return "Usuário inválido!";
+    }
+
+    l.setQuantidade(l.getQuantidade() - 1);
+    l.setUser(u); // Associa o usuário ao livro
+    lRepo.save(l); // PERSISTE a alteração
+
+    return "Emprestimo realizado com sucesso!";
+}
 }
