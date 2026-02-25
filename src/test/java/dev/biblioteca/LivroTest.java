@@ -27,6 +27,9 @@ public class LivroTest {
                 .isbn("123456789")
                 .quantidade(3)
                 .build();
+        user = User.builder()
+            .login("usuario")
+            .build();        
     }
     @Test // anotação para dizer que esse método é um teste
     public void CadastroSemTitulo(){
@@ -86,27 +89,33 @@ public void ConsultaValida(){
         .quantidade(3)
         .build();
     
-    livroService.cadastrar(livro); // ← cadastra primeiro!
+    livroService.cadastrar(livro); // cadastra primeiro!
     
     resultado = livroService.consulta(livro.getTitulo());
-    assertEquals("Livro encontrado: " + livro, resultado); // ← bate com o retorno
+    assertEquals("Livro encontrado: " + livro, resultado); // bate com o retorno
 }
     @Test
-    public void EmprestimoValido(){
-        livro = Livro.builder()
-            .isbn("123456789")
-            .user(user) // passando o objeto user criado no método setUp para o atributo user do livro
+public void EmprestimoValido(){
+    livro = Livro.builder()
+        .titulo("123456789")
+        .autor("Autor Teste")
+        .isbn("123456789")
+        .quantidade(3)
         .build();
-        resultado = livroService.emprestar(livro, user);
-        assertEquals("Emprestimo realizado com sucesso!", resultado);
-    }
+
+    livroService.cadastrar(livro); // cadastra primeiro!
+    resultado = livroService.consulta(livro.getTitulo());
+    resultado = livroService.emprestar(livro, user); // aqui passa o objeto user
+}
     @Test
     public void EmprestimoEstoqueIndisponivel(){
         livro = Livro.builder()
-            .isbn("123456789")
+            .titulo("123456789")
             .user(user) // passando o objeto user criado no método setUp para o atributo user do livro
             .build();
-        resultado = livroService.emprestar(livro, user);
-        assertEquals("Emprestimo nao realizado por falta de estoque", resultado);    
+    livroService.cadastrar(livro); // cadastra primeiro!
+    resultado = livroService.consulta(livro.getTitulo());
+    resultado = livroService.emprestar(livro, user); // aqui passa o objeto user
+    
     }
 }

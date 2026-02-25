@@ -38,11 +38,24 @@ public class LivroService { // ← sem parênteses!
     return "Livro encontrado: " + livroRepo.findByTitulo(titulo);
     }
     // metodo de emprestar um livro para um usuário
-    public String emprestar(Livro l, User u){
-        if (l.getTitulo().isEmpty()){ // verifica se o titulo do livro está vazio
-            return "Titulo inválido!";
-        }
-        System.out.println("Livro: " + l.getTitulo() + " " + u.getLogin() + " com sucesso!");
-        return "Livro emprestado com sucesso!";
+    public String emprestar(Livro l, User u) {
+
+    if (l.getTitulo() == null || l.getTitulo().isEmpty()) {
+        return "Título inválido!";
     }
+
+    if (l.getQuantidade() <= 0) {
+        return "Livro indisponível para empréstimo!";
+    }
+
+    if(u == null){
+        return "Usuário inválido!";
+    }
+    l.setQuantidade(l.getQuantidade() - 1);
+
+    System.out.println("Livro: " + l.getTitulo() + 
+                       " emprestado para " + u.getLogin() + " com sucesso!");
+
+    return "Emprestimo realizado com sucesso!";
+}
 }
