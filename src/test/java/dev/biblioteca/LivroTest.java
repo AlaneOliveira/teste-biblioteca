@@ -11,7 +11,7 @@ import dev.biblioteca.model.entities.Livro;
 import dev.biblioteca.model.entities.User;
 import dev.biblioteca.service.LivroService;
 
-@ExtendWith(MockitoExtension.class) 
+@ExtendWith(MockitoExtension.class) //  o Mockito criará automaticamente os objetos simulados necessários, simplificando o código do teste.
 @SpringBootTest // anotação para dizer que é um teste de contexto do Spring Boot
 public class LivroTest {
     private Livro livro; // criando um objeto do tipo Livro para usar nos testes
@@ -101,21 +101,26 @@ public void EmprestimoValido(){
         .autor("Autor Teste")
         .isbn("123456789")
         .quantidade(3)
+        .user(user)
         .build();
 
     livroService.cadastrar(livro); // cadastra primeiro!
-    resultado = livroService.consulta(livro.getTitulo());
-    resultado = livroService.emprestar(livro, user); // aqui passa o objeto user
+    Livro resLivro = livroService.consulta(livro.getTitulo()).get();
+    resultado = livroService.emprestar(resLivro, user); // aqui passa o objeto user
+    assertEquals("Emprestimo realizado com sucesso!", resultado);
 }
     @Test
     public void EmprestimoEstoqueIndisponivel(){
         livro = Livro.builder()
             .titulo("123456789")
+            .autor("Autor Teste")
+            .isbn("123456789")
+            .quantidade(0)
             .user(user) // passando o objeto user criado no método setUp para o atributo user do livro
             .build();
     livroService.cadastrar(livro); // cadastra primeiro!
     resultado = livroService.consulta(livro.getTitulo());
     resultado = livroService.emprestar(livro, user); // aqui passa o objeto user
-    
+    assertEquals("Livro indisponível para empréstimo!", resultado);
     }
 }

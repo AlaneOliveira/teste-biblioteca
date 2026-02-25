@@ -5,17 +5,29 @@ import dev.biblioteca.model.repositories.UserRepo;
 
 public class UserService {
 
-    private UserRepo uRepo = new UserRepo(); // objeto da classe UserRepo para acessar os métodos de salvar usuário no banco local
+    private UserRepo uRepo; // objeto da classe UserRepo para acessar os métodos de salvar usuário no banco local
 
+    public UserService(UserRepo rUserRepo) {
+        this.uRepo = rUserRepo;
+    }
     // método para inserir usuário
-    public String inserir(User usuario){
+    public String logar(User usuario){
         if (usuario.getLogin().isEmpty()){
             return "Preencha o campo login";
         }
         else if (usuario.getSenha().isEmpty() || !usuario.getSenha().matches("[0-9]+")){ // só aceita numeros
             return "preencha o campo senha corretamente";
+        } 
+
+        User local = uRepo.buscar(usuario.getLogin());
+
+        if( local == null){
+            return "usuario nao encontrado";
         }
-        System.out.println(cadastrar(usuario));
+
+        if (!local.getSenha().equals(usuario.getSenha())) {
+             return "Senha Inválida";
+        }
         return "Usuário logado com sucesso!";
     }
 
@@ -27,7 +39,7 @@ public class UserService {
         if(usuario.getLogin().isEmpty() || usuario.getSenha().isEmpty()){ // verifica se o login do usuário está vazio
             return "usuario vazio";
         }
-        System.out.println("Usuário " + usuario.getLogin() + " Senha " + usuario.getSenha() + " cadastrado com sucesso!");
+    
         uRepo.save(usuario);
         return "Usuário cadastrado com sucesso!";
     }
