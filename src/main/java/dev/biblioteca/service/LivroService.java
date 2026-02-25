@@ -9,8 +9,9 @@ import dev.biblioteca.model.repositories.LivroRepo;
 public class LivroService { // ← sem parênteses!
 
     private LivroRepo lRepo;
-    private LivroService (LivroRepo livroRepo){
-        this.lRepo = livroRepo;
+
+    public LivroService(LivroRepo rLivroRepo) {
+        this.lRepo = rLivroRepo;
     }
 
     // metodo de cadastrar um novo livro na biblioteca
@@ -27,20 +28,26 @@ public class LivroService { // ← sem parênteses!
         if (l.getQuantidade() == 0) {
             return "Livro sem a quantidade, por favor informe";
         }
-        livroRepo.save(l); // salva o livro no repositório
+        lRepo.save(l); // salva o livro no repositório
         return "Livro cadastrado com sucesso";
     }
 
     public Optional<Livro> consulta(String titulo) {
-        if (titulo.isEmpty()) {
+        if (titulo == null || titulo.isEmpty()) {
             return Optional.empty();
         }
-        // busca o livro pelo titulo
-        return Optional.of(livroRepo.findByTitulo(titulo));
+
+        Livro local = lRepo.findByTitulo(titulo);
+
+        if (local == null) {
+            return Optional.empty();
+        }
+
+        return Optional.of(local);
     }
 
-    // metodo de emprestar um livro para um usuário
-    public String emprestar(Livro l, User u) {
+    // metodo de emprestimo de um livro para um usuário
+    public String emprestimo(Livro l, User u) {
 
         if (l.getTitulo() == null || l.getTitulo().isEmpty()) {
             return "Título inválido!";

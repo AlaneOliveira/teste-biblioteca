@@ -26,7 +26,7 @@ public class UserService {
         }
 
         if (!local.getSenha().equals(usuario.getSenha())) {
-             return "Senha Inválida";
+            return "Senha Inválida";
         }
         return "Usuário logado com sucesso!";
     }

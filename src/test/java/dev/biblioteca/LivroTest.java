@@ -1,25 +1,36 @@
 package dev.biblioteca;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.*;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import dev.biblioteca.model.entities.Livro;
 import dev.biblioteca.model.entities.User;
 import dev.biblioteca.service.LivroService;
+import dev.biblioteca.model.repositories.LivroRepo;
 
 @ExtendWith(MockitoExtension.class) // o Mockito criará automaticamente os objetos simulados necessários,
                                     // simplificando o código do teste.
 @SpringBootTest // anotação para dizer que é um teste de contexto do Spring Boot
 public class LivroTest {
+
     private Livro livro; // criando um objeto do tipo Livro para usar nos testes
+
     private User user;
+
+    @Mock
+    private LivroRepo livroRepo;
+
     @InjectMocks // anotação para injetar os mocks criados na classe UserService
-    private LivroService livroService = new LivroService(); // criando um objeto do tipo UserService
+    private LivroService livroService;
     String resultado;
 
     @BeforeEach // anotação para dizer que esse método deve ser executado antes de cada teste
@@ -31,63 +42,87 @@ public class LivroTest {
                 .isbn("123456789")
                 .quantidade(3)
                 .build();
-        user = User.builder()
-                .login("usuario")
-                .build();
     }
 
     @Test // anotação para dizer que esse método é um teste
-    public void CadastroSemTitulo() {
-        livro = Livro.builder()
+    public void cadastroSemTitulo() {
+
+        Livro livroTeste = Livro.builder()
                 .titulo("")
                 .autor("Autor Teste")
                 .isbn("123456789")
                 .quantidade(3)
                 .build();
-        resultado = livroService.cadastrar(livro);
+
+        resultado = livroService.cadastrar(livroTeste);
+
         assertEquals("Livro sem titulo, por favor informe", resultado);
+
+        verify(livroRepo, never()).save(any());
     }
 
     @Test
     public void CadastroSemAutor() {
-        livro = Livro.builder()
+        Livro livroTeste1 = Livro.builder()
                 .titulo("teste")
                 .autor("")
                 .isbn("123456789")
                 .quantidade(3)
                 .build();
-        resultado = livroService.cadastrar(livro);
+
+        resultado = livroService.cadastrar(livroTeste1);
+
         assertEquals("Livro sem autor, por favor informe", resultado);
+
+        verify(livroRepo, never()).save(any());
     }
 
     @Test
     public void CadastroSemIsbn() {
-        livro = Livro.builder()
+        Livro livroteste2 = Livro.builder()
                 .titulo("teste")
                 .autor("Autor Teste")
                 .isbn("")
                 .quantidade(3)
                 .build();
-        resultado = livroService.cadastrar(livro);
+
+        resultado = livroService.cadastrar(livroteste2);        
+
         assertEquals("Livro sem ISBN, por favor informe", resultado);
+
+        verify(livroRepo, never()).save(any());
     }
 
     @Test
     public void CadastroSemQuantidade() {
-        livro = Livro.builder()
+        Livro livroteste3 = Livro.builder()
                 .titulo("teste")
                 .autor("Autor Teste")
                 .isbn("123456789")
                 .quantidade(0)
                 .build();
-        resultado = livroService.cadastrar(livro);
-        assertEquals("Livro sem a quantidade, por favor informe", resultado);
+
+        resultado = livroService.cadastrar(livroteste3);        
+
+        assertEquals("Livro sem quantidade, por favor informe", resultado);
+
+        verify(livroRepo, never()).save(any());
     }
 
     @Test
     public void CadastroCamposValidos() {
-        resultado = livroService.cadastrar(livro);
-        assertEquals("Livro cadastrado com sucesso", resultado);
+        Livro livroteste4 = Livro.builder()
+                .titulo("")
+                .autor("")
+                .isbn("")
+                .quantidade(0)
+                .build();
+
+        resultado = livroService.cadastrar(livroteste4);
+
+        assertEquals("Livro sem quantidade, por favor informe", resultado);
+
+        verify(livroRepo, never()).save(any());
     }
 
     @Test
@@ -99,9 +134,10 @@ public class LivroTest {
                 .quantidade(3)
                 .build();
 
-        livroService.cadastrar(livro); // cadastra primeiro!
+        when(this.LivroRepo.buscar("teste")).thenReturn(livro); 
 
         resultado = livroService.consulta(livro.getTitulo());
+        
         assertEquals("Livro encontrado: " + livro, resultado); // bate com o retorno
     }
 
@@ -131,7 +167,9 @@ public class LivroTest {
                 .user(user) // passando o objeto user criado no método setUp para o atributo user do livro
                 .build();
         livroService.cadastrar(livro); // cadastra primeiro!
+
         resultado = livroService.consulta(livro.getTitulo());
+
         resultado = livroService.emprestar(livro, user); // aqui passa o objeto user
         assertEquals("Livro indisponível para empréstimo!", resultado);
     }

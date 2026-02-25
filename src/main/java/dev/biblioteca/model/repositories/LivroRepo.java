@@ -6,6 +6,6 @@ public interface LivroRepo {
 
     public void save (Livro l);
 
-    public void findByTitulo (String titulo);
+    public Livro findByTitulo (String titulo);
 
 } 
