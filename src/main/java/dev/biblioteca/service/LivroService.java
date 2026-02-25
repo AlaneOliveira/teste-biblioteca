@@ -8,8 +8,10 @@ import dev.biblioteca.model.repositories.LivroRepo;
 
 public class LivroService { // ← sem parênteses!
 
-    private LivroRepo livroRepo;
-    // metodo de inserir um livro cadastrado
+    private LivroRepo lRepo;
+    private LivroService (LivroRepo livroRepo){
+        this.lRepo = livroRepo;
+    }
 
     // metodo de cadastrar um novo livro na biblioteca
     public String cadastrar(Livro l) {
