@@ -57,7 +57,7 @@ public class UserTest {
                 .senha("ddd") // senha inválida (não é número)
                 .build(); 
 
-        resultado = userService.logar(userTeste);
+        resultado = userService.logar(userTeste); 
 
         assertEquals("preencha o campo senha corretamente", resultado); // verificando se o resultado do método inserir
                                                                         // é igual a "Usuário ou senha inválidos!"
@@ -100,7 +100,7 @@ public class UserTest {
                 .build();
 
         resultado = userService.logar(userTeste4); // chamando o método inserir do UserService para testar o login do usuário com senha vazia
-                                            
+                                   
         assertEquals("preencha o campo senha corretamente", resultado); // verificando se o resultado do método inserir
                                                                         // é igual a "Senha vazia!"
     }

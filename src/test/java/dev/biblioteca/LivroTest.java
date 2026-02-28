@@ -64,7 +64,7 @@ public void CadastroCamposValidos() {
     // 2. Act (Agir)
     // O método cadastrar(Livro l) do seu LivroService retorna uma STRING
     String resultadoCadastro = livroService.cadastrar(livroValido);
-
+    System.out.println("Resultado livro valido: " + resultadoCadastro); 
     // 3. Assert (Verificar)
     assertEquals("Livro cadastrado com sucesso", resultadoCadastro);
     
@@ -85,7 +85,7 @@ public void CadastroCamposValidos() {
         resultado = livroService.cadastrar(livroTeste);
 
         assertEquals("Livro sem titulo, por favor informe", resultado);
-
+        
         verify(livroRepo, never()).save(any());
     }
 
@@ -99,6 +99,7 @@ public void CadastroCamposValidos() {
                 .build();
 
         resultado = livroService.cadastrar(livroTeste1);
+        System.out.println("Resultado sem autor: " + resultado); 
 
         assertEquals("Livro sem autor, por favor informe", resultado);
 
@@ -115,7 +116,7 @@ public void CadastroCamposValidos() {
                 .build();
 
         resultado = livroService.cadastrar(livroteste2);        
-
+        
         assertEquals("Livro sem ISBN, por favor informe", resultado);
 
         verify(livroRepo, never()).save(any());
@@ -131,7 +132,7 @@ public void CadastroCamposValidos() {
                 .build();
 
         resultado = livroService.cadastrar(livroteste3);        
-
+        
         assertEquals("Livro sem a quantidade, por favor informe", resultado);
 
         verify(livroRepo, never()).save(any());
@@ -153,7 +154,7 @@ public void ConsultaValida() {
     // 2. Act (Agir)
     // CORREÇÃO: O retorno é Optional<Livro>, não String.
     java.util.Optional<Livro> resultadoOptional = livroService.consulta("teste");
-
+    
     // 3. Assert (Verificar)
     // Verificamos se o Optional não está vazio e se o conteúdo é o esperado
     assertEquals(true, resultadoOptional.isPresent(), "O livro deveria ter sido encontrado");
@@ -177,7 +178,6 @@ public void ConsultaValida() {
         resultado = livroService.emprestimo(resLivro, user); // aqui passa o objeto user
 
         verify(livroRepo, times(1)).save(resLivro); // Verifica se o método save foi chamado para persistir a alteração do livro
-
         assertEquals("Emprestimo realizado com sucesso!", resultado);
     }
 
@@ -195,7 +195,7 @@ public void ConsultaValida() {
         Livro resLivro = livroService.consulta(eInvalido.getTitulo()).get();
 
         resultado = livroService.emprestimo(resLivro, user); // aqui passa o objeto user
-
+        
         assertEquals("Livro indisponível para empréstimo!", resultado);
     }
 }
