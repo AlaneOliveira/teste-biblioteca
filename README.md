@@ -5,8 +5,6 @@
   <img src="https://img.shields.io/badge/Status-Finalizado-brightgreen"/>
 </p>
 
---
-
 # 📚 Biblioteca Spring Boot
 
 Projeto de estudo desenvolvido em **Java com Spring Boot**, simulando um sistema de biblioteca.  
