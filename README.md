@@ -1,10 +1,3 @@
-<p align="center">
-  <img src="https://img.shields.io/badge/Java-100%25-orange"/>
-  <img src="https://img.shields.io/badge/Platform-JUnit5-green"/>
-  <img src="https://img.shields.io/badge/Mockito-Testes-blue"/>
-  <img src="https://img.shields.io/badge/Status-Finalizado-brightgreen"/>
-</p>
-
 # 📚 Biblioteca Spring Boot
 
 Projeto de estudo desenvolvido em **Java com Spring Boot**, simulando um sistema de biblioteca.  
@@ -43,3 +36,10 @@ Exemplo:
 - Empréstimo de livros para usuários cadastrados
 - Verificação de disponibilidade em estoque
 - Bloqueio de empréstimo quando o livro estiver indisponível
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Java-100%25-orange"/>
+  <img src="https://img.shields.io/badge/Platform-JUnit5-green"/>
+  <img src="https://img.shields.io/badge/Mockito-Testes-blue"/>
+  <img src="https://img.shields.io/badge/Status-Finalizado-brightgreen"/>
+</p>
