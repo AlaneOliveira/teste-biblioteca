@@ -10,6 +10,7 @@ public class UserService {
     public UserService(UserRepo rUserRepo) {
         this.uRepo = rUserRepo;
     }
+
     // método para inserir usuário
     public String logar(User usuario){
         if (usuario.getLogin().isEmpty()){
@@ -18,7 +19,6 @@ public class UserService {
         else if (usuario.getSenha().isEmpty() || !usuario.getSenha().matches("[0-9]+")){ // só aceita numeros
             return "preencha o campo senha corretamente";
         } 
-
         User local = uRepo.buscar(usuario.getLogin());
 
         if( local == null){
