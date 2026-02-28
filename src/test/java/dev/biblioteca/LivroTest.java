@@ -12,7 +12,6 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import dev.biblioteca.model.entities.Livro;
 import dev.biblioteca.model.entities.User;
@@ -21,7 +20,6 @@ import dev.biblioteca.service.LivroService;
 
 @ExtendWith(MockitoExtension.class) // o Mockito criará automaticamente os objetos simulados necessários,
                                     // simplificando o código do teste.
-@SpringBootTest // anotação para dizer que é um teste de contexto do Spring Boot
 public class LivroTest {
 
     private Livro livro; // criando um objeto do tipo Livro para usar nos testes
@@ -177,6 +175,8 @@ public void ConsultaValida() {
         Livro resLivro = livroService.consulta(eValido.getTitulo()).get();
 
         resultado = livroService.emprestimo(resLivro, user); // aqui passa o objeto user
+
+        verify(livroRepo, times(1)).save(resLivro); // Verifica se o método save foi chamado para persistir a alteração do livro
 
         assertEquals("Emprestimo realizado com sucesso!", resultado);
     }

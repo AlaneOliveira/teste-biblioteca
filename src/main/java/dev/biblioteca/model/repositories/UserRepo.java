@@ -1,6 +1,4 @@
 package dev.biblioteca.model.repositories;
-import java.util.ArrayList;
-import java.util.List;
 
 import dev.biblioteca.model.entities.User;
 

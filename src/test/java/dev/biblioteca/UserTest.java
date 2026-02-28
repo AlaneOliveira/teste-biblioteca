@@ -1,15 +1,13 @@
 package dev.biblioteca;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import static org.mockito.Mockito.when;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import dev.biblioteca.model.entities.User;
 import dev.biblioteca.model.repositories.UserRepo;
@@ -17,7 +15,6 @@ import dev.biblioteca.service.UserService;
 
 @ExtendWith(MockitoExtension.class) // o Mockito criará automaticamente os objetos simulados necessários,
                                     // simplificando o código do teste.
-@SpringBootTest // anotação para dizer que é um teste de contexto do Spring Boot
 public class UserTest {
 
     private User user; // criando um objeto do tipo User para usar nos testes
@@ -58,9 +55,7 @@ public class UserTest {
         User userTeste = User.builder()
                 .login("teste")
                 .senha("ddd") // senha inválida (não é número)
-                .build();
-
-        when(this.rUserRepo.buscar("teste")).thenReturn(user); 
+                .build(); 
 
         resultado = userService.logar(userTeste);
 
@@ -75,7 +70,7 @@ public class UserTest {
                 .senha("123")
                 .build();
 
-        when(this.rUserRepo.buscar("teste")).thenReturn(user);
+        when(this.rUserRepo.buscar("oi")).thenReturn(null); // simulando que o usuário não existe
 
         resultado = userService.logar(userTeste2);
 
@@ -89,8 +84,6 @@ public class UserTest {
                 .login("") // login vazio
                 .senha("123") // senha válida
                 .build();
-
-        when(this.rUserRepo.buscar("teste")).thenReturn(user);
 
         resultado = userService.logar(userTeste3);
 
@@ -106,10 +99,8 @@ public class UserTest {
                 .senha("") // senha vazia
                 .build();
 
-        when(this.rUserRepo.buscar("teste")).thenReturn(user);
-
-        resultado = userService.logar(userTeste4); // chamando o método inserir do UserService para testar o login do
-                                               // usuário
+        resultado = userService.logar(userTeste4); // chamando o método inserir do UserService para testar o login do usuário com senha vazia
+                                            
         assertEquals("preencha o campo senha corretamente", resultado); // verificando se o resultado do método inserir
                                                                         // é igual a "Senha vazia!"
     }
